@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chibi-dance-party"
+version = "0.1.0"
+description = "Lightweight Linux desktop chibi animation companion"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "PySide6>=6.6",
+  "Pillow>=10.0",
+]
+
+[project.scripts]
+chibi-dance-party = "chibi_dance_party.main:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

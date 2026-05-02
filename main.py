@@ -1,43 +1,5 @@
-"""
-Chibi Dance Party – random chibi sprites dancing on your Linux desktop
-=====================================================================
+from __future__ import annotations
 
-This script provides a lightweight desktop companion that spawns cute
-chibi characters at random positions on your screen. Each character
-appears in its own transparent, borderless window, stays for a few
-seconds, and then disappears. The scheduler continues to spawn
-characters at random intervals.
-
-**Requirements**
-----------------
-
-* Python 3.8 or newer
-* PySide6 (Qt for Python)
-* Pillow (for image loading)
-
-Install dependencies with:
-
-```
-pip install -r requirements.txt
-```
-
-Run the application with:
-
-```
-python3 main.py
-```
-
-You can add your own sprites by placing PNG files into the
-`characters/` directory. Files with a transparent background work best.
-
-**Note:** On Wayland sessions, some desktop environments may not allow
-borderless windows to be truly topmost or transparent. The app has
-been tested on X11 and modern Wayland compositors that support
-transparent windows.
-"""
-
-import os
-import random
 import sys
 from pathlib import Path
 

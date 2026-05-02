@@ -1,0 +1,11 @@
+{
+  "spawn_min_seconds": 2,
+  "spawn_max_seconds": 8,
+  "visible_duration_seconds": 5,
+  "max_active_characters": 5,
+  "character_scale": 1.0,
+  "screen_margin": 20,
+  "spawn_mode": "corners",
+  "fade_out_seconds": 1,
+  "characters_dir": "characters"
+}
