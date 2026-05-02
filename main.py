@@ -161,9 +161,8 @@ class Scheduler(QtCore.QObject):
             w = pixmap.width()
             h = pixmap.height()
 
-        # Determine random position within screen bounds
-        x = random.randint(self.available_rect.left(), self.available_rect.right() - w)
-        y = random.randint(self.available_rect.top(), self.available_rect.bottom() - h)
+        # Determine position near bottom corners (dock/sidebar friendly)
+        x, y = self._bottom_corner_position(w, h)
         # Create window
         window = CharacterWindow(pixmap=pixmap, movie_path=movie_path)
         window.move(x, y)
@@ -177,6 +176,33 @@ class Scheduler(QtCore.QObject):
         window.destroyed.connect(lambda: self._windows.remove(window))
         # Schedule next spawn
         self.schedule_next()
+
+    def _bottom_corner_position(self, w: int, h: int) -> tuple[int, int]:
+        """Return a position near the bottom-left or bottom-right corner."""
+        rect = self.available_rect
+        min_x = rect.left()
+        max_x = rect.right() - w
+        max_y = rect.bottom() - h
+        min_y = rect.top()
+
+        if max_x < min_x or max_y < min_y:
+            return min_x, min_y
+
+        side_margin = 24
+        bottom_margin = 12
+        corner_band = max(int(rect.width() * 0.18), w + side_margin)
+
+        left_band_end = min(max_x, min_x + corner_band)
+        right_band_start = max(min_x, max_x - corner_band)
+
+        if random.random() < 0.5:
+            x = random.randint(min_x, max(left_band_end, min_x))
+        else:
+            x = random.randint(min(right_band_start, max_x), max_x)
+
+        y_min = max(min_y, max_y - max(int(rect.height() * 0.08), h // 3) - bottom_margin)
+        y = random.randint(y_min, max_y)
+        return x, y
 
 
 def load_character_assets(characters_dir: Path) -> list[Path]:
